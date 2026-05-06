@@ -17,22 +17,10 @@
     <!-- AOS Library CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="style.css" />
+
     <style>
-      :root {
-        --primary: #a44a3f;
-        --secondary: #2d3142;
-        --accent: #f4f1de;
-        --text: #4f5d75;
-      }
-
-      body {
-        font-family: "Plus Jakarta Sans", sans-serif;
-        color: var(--text);
-        background-color: #fff;
-        scroll-behavior: smooth;
-        overflow-x: hidden;
-      }
-
+      /* Restore some specific original Home.html styles that differ from my general style.css */
       .hero-section {
         position: relative;
         height: 100vh;
@@ -46,65 +34,10 @@
         justify-content: center;
       }
 
-      .wave-container {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        line-height: 0;
-      }
-
-      .wave-container svg {
-        position: relative;
-        display: block;
-        width: calc(100% + 1.3px);
-        height: 60px;
-      }
-
-      .card-flat {
-        border: 1.5px solid #eee;
-        transition: all 0.3s ease;
-      }
-
-      .card-flat:hover {
-        background-color: var(--accent);
-        border-color: var(--primary);
-        transform: translateY(-5px);
-      }
-
       .section-asymmetric {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         gap: 20px;
-      }
-
-      .floating-wa {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 1000;
-        background-color: #25d366;
-        color: white;
-        padding: 12px 24px;
-        border-radius: 50px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s;
-      }
-
-      .floating-wa:hover {
-        transform: scale(1.05);
-      }
-
-      .price-tag {
-        background: var(--primary);
-        color: white;
-        padding: 4px 12px;
-        border-radius: 4px;
-        font-size: 0.9rem;
       }
 
       .wave-bg-section {
@@ -136,35 +69,6 @@
         width: 100%;
       }
 
-      .itinerary-item {
-        position: relative;
-        padding-left: 20px;
-        border-left: 2px solid var(--primary);
-      }
-
-      .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        grid-auto-rows: 280px;
-        gap: 1.5rem;
-      }
-
-      .gallery-item {
-        position: relative;
-        overflow: hidden;
-        border-radius: 1rem;
-        cursor: pointer;
-      }
-
-      .gallery-item:nth-child(2),
-      .gallery-item:nth-child(5) {
-        grid-row: span 2;
-      }
-
-      .gallery-item:nth-child(3) {
-        grid-column: span 2;
-      }
-
       @media (max-width: 768px) {
         .hero-section {
           height: auto;
@@ -172,126 +76,15 @@
           padding-top: 100px;
           padding-bottom: 120px;
         }
-        .hero-section h1 {
-          font-size: 2.25rem;
-          line-height: 1.2;
-        }
-        .hero-section p {
-          font-size: 1rem;
-        }
         .section-asymmetric {
           display: flex;
           flex-direction: column;
-        }
-        .gallery-grid {
-          grid-template-columns: 1fr;
-          grid-auto-rows: 250px;
-        }
-        .gallery-item:nth-child(n) {
-          grid-row: span 1;
-          grid-column: span 1;
         }
       }
     </style>
   </head>
   <body>
-    <!-- Navigasi -->
-    <nav
-      class="fixed top-0 left-0 w-full z-[9995] bg-white/90 backdrop-blur-md border-b border-gray-100"
-    >
-      <div
-        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative z-[9999]"
-      >
-        <a href="#" class="text-2xl font-bold text-[#A44A3F]"
-          >Jogja<span class="text-[#2D3142]">Trip</span></a
-        >
-
-        <!-- Desktop Menu -->
-        <div class="hidden md:flex space-x-8 font-medium text-sm">
-          <a href="#services" class="hover:text-[#A44A3F] transition-colors"
-            >Layanan</a
-          >
-          <a href="#packages" class="hover:text-[#A44A3F] transition-colors"
-            >Paket Wisata</a
-          >
-          <a href="#destinations" class="hover:text-[#A44A3F] transition-colors"
-            >Destinasi</a
-          >
-          <a href="#testimonials" class="hover:text-[#A44A3F] transition-colors"
-            >Testimoni</a
-          >
-        </div>
-
-        <div class="flex items-center gap-4">
-          <button
-            onclick="document.getElementById('packages').scrollIntoView()"
-            class="hidden sm:block bg-[#A44A3F] text-white px-6 py-2 rounded-full hover:bg-[#8e3d34] transition-colors text-sm font-semibold"
-          >
-            Pesan Sekarang
-          </button>
-
-          <!-- Mobile Menu Button -->
-          <button
-            id="menu-btn"
-            class="md:hidden text-[#2D3142] focus:outline-none"
-          >
-            <svg
-              class="w-8 h-8"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                id="menu-icon"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      <!-- Mobile Menu Overlay -->
-      <div
-        id="mobile-menu"
-        class="fixed inset-0 w-full h-screen bg-white z-[9997] flex flex-col items-center pt-32 px-8 transition-transform duration-500 ease-in-out translate-x-full md:hidden"
-      >
-        <div class="flex flex-col items-center w-full space-y-6">
-          <a
-            href="#services"
-            class="mobile-link text-2xl font-bold text-[#2D3142] hover:text-[#A44A3F]"
-            >Layanan</a
-          >
-          <a
-            href="#packages"
-            class="mobile-link text-2xl font-bold text-[#2D3142] hover:text-[#A44A3F]"
-            >Paket Wisata</a
-          >
-          <a
-            href="#destinations"
-            class="mobile-link text-2xl font-bold text-[#2D3142] hover:text-[#A44A3F]"
-            >Destinasi</a
-          >
-          <a
-            href="#testimonials"
-            class="mobile-link text-2xl font-bold text-[#2D3142] hover:text-[#A44A3F]"
-            >Testimoni</a
-          >
-
-          <button
-            onclick="
-              toggleMobileMenu();
-              document.getElementById('packages').scrollIntoView();
-            "
-            class="mt-10 w-full bg-[#A44A3F] text-white py-5 rounded-full text-xl font-bold shadow-2xl hover:bg-[#8e3d34] transition-all"
-          >
-            Pesan Sekarang
-          </button>
-        </div>
-      </div>
-    </nav>
+    <!-- Navbar and Footer are rendered via shared.js -->
 
     <!-- Hero Section -->
     <header class="hero-section text-center text-white px-6 overflow-hidden">
@@ -301,7 +94,7 @@
           >Liburan Istimewa Menanti Anda</span
         >
         <h1
-          class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-[1.1] tracking-tight"
+          class="text-4xl md:text-6xl text-white lg:text-7xl font-extrabold mb-6 leading-[1.1] tracking-tight"
         >
           Jelajahi Pesona Jogja <br class="hidden md:block" />
           dengan Kenyamanan Terbaik
@@ -315,14 +108,12 @@
         <div
           class="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <a
-            href="#packages"
-            class="w-full sm:w-auto bg-white text-[#A44A3F] px-10 py-4 rounded-full font-bold hover:bg-[#f4f1de] transition-all hover:scale-105 shadow-lg"
-            >Lihat Paket</a
+          <a href="paket.html" class="btn-primary !px-10 !py-4"
+            >Lihat Semua Paket</a
           >
           <a
             href="#services"
-            class="w-full sm:w-auto border-2 border-white/50 backdrop-blur-sm px-10 py-4 rounded-full font-bold hover:bg-white/20 transition-all hover:scale-105"
+            class="btn-outline !border-white !text-white hover:!bg-white hover:!text-[#A44A3F] !px-10 !py-4"
             >Layanan Kami</a
           >
         </div>
@@ -442,7 +233,7 @@
       </div>
     </section>
 
-    <!-- Paket Wisata -->
+    <!-- Paket Wisata (Revised as requested) -->
     <section id="packages" class="py-24 max-w-7xl mx-auto px-6">
       <div
         class="flex flex-col md:flex-row justify-between items-end mb-12"
@@ -455,9 +246,9 @@
           <p>Pilih paket perjalanan yang telah dikurasi khusus untuk Anda.</p>
         </div>
         <a
-          href="#"
-          class="text-[#A44A3F] font-bold border-b-2 border-[#A44A3F] pb-1 hidden md:block hover:text-[#8e3d34]"
-          >Semua Paket</a
+          href="paket.html"
+          class="text-[#A44A3F] font-bold border-b-2 border-[#A44A3F] pb-1 hover:text-[#8e3d34]"
+          >Lihat Selengkapnya</a
         >
       </div>
       <div
@@ -480,15 +271,15 @@
           ></path>
         </svg>
       </div>
-
       <div class="max-w-7xl mx-auto px-6 relative z-10 py-16">
         <div class="text-center mb-16" data-aos="fade-up">
-          <h2 class="text-3xl font-bold mb-2">Destinasi Ikonik Jogja</h2>
+          <h2 class="text-3xl font-bold mb-2 text-white">
+            Destinasi Ikonik Jogja
+          </h2>
           <p class="opacity-70">
             Tempat-tempat wajib kunjung selama Anda berada di Yogyakarta.
           </p>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div
             class="md:col-span-2 relative group overflow-hidden rounded-xl h-64 md:h-80"
@@ -502,7 +293,9 @@
             <div
               class="absolute inset-0 bg-black/40 p-6 flex flex-col justify-end"
             >
-              <h4 class="text-xl font-bold">Candi Borobudur & Prambanan</h4>
+              <h4 class="text-xl text-white font-bold">
+                Candi Borobudur & Prambanan
+              </h4>
               <p class="text-xs opacity-80">Situs Warisan Dunia UNESCO</p>
             </div>
           </div>
@@ -519,7 +312,7 @@
             <div
               class="absolute inset-0 bg-black/40 p-6 flex flex-col justify-end"
             >
-              <h4 class="text-lg font-bold">Malioboro</h4>
+              <h4 class="text-lg text-white font-bold">Malioboro</h4>
               <p class="text-xs opacity-80">Jantung Kota & Pusat Belanja</p>
             </div>
           </div>
@@ -536,13 +329,12 @@
             <div
               class="absolute inset-0 bg-black/40 p-6 flex flex-col justify-end"
             >
-              <h4 class="text-lg font-bold">Gunung Kidul</h4>
+              <h4 class="text-lg text-white font-bold">Gunung Kidul</h4>
               <p class="text-xs opacity-80">Pesona Pantai Pasir Putih</p>
             </div>
           </div>
         </div>
       </div>
-
       <div class="wave-bottom">
         <svg
           viewBox="0 0 1440 120"
@@ -557,16 +349,41 @@
       </div>
     </section>
 
-    <!-- Momen Perjalanan (Galeri) -->
-    <section id="gallery" class="py-24 max-w-7xl mx-auto px-6">
+    <!-- Armada Kami -->
+    <section id="armada" class="py-12 max-w-7xl mx-auto px-6">
+      <div
+        class="flex flex-col md:flex-row justify-between items-end mb-12"
+        data-aos="fade-up"
+      >
+        <div>
+          <h2 class="text-3xl font-bold mb-2 text-gray-800">Armada Kami</h2>
+          <p>Pilihan kendaraan terbaik untuk kenyamanan perjalanan Anda.</p>
+        </div>
+        <a
+          href="armada.html"
+          class="text-[#A44A3F] font-bold border-b-2 border-[#A44A3F] pb-1 hover:text-[#8e3d34]"
+          >Lihat Selengkapnya</a
+        >
+      </div>
+      <div
+        id="armada-container"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      ></div>
+    </section>
+
+    <!-- Momen Perjalanan (Revised Gallery as requested) -->
+    <section id="gallery" class="py-12 max-w-7xl mx-auto px-6">
       <div class="text-center mb-16" data-aos="fade-up">
         <h2 class="text-3xl font-bold text-gray-800 mb-2">Momen Perjalanan</h2>
         <div class="w-20 h-1 bg-[#A44A3F] mx-auto mb-4"></div>
-        <p class="text-gray-500">
+        <p class="text-gray-500 mb-8">
           Kumpulan kebahagiaan wisatawan kami selama di Yogyakarta.
         </p>
       </div>
-      <div id="gallery-container" class="gallery-grid"></div>
+      <div id="gallery-container" class="gallery-grid mb-12"></div>
+      <div class="text-center">
+        <a href="gallery.html" class="btn-outline">Lihat Selengkapnya</a>
+      </div>
     </section>
 
     <!-- Testimoni -->
@@ -578,7 +395,6 @@
           </h2>
           <div class="w-20 h-1 bg-[#A44A3F] mx-auto mb-4"></div>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div
             class="bg-white p-8 rounded-2xl border-l-4 border-[#A44A3F] shadow-sm hover:shadow-md transition-shadow"
@@ -654,64 +470,44 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-[#2D3142] text-white py-16">
-      <div
-        class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm"
-      >
-        <div class="col-span-1 md:col-span-2">
-          <a href="#" class="text-2xl font-bold text-[#A44A3F] mb-6 block"
-            >Jogja<span class="text-white">Trip</span></a
-          >
-          <p class="opacity-70 leading-relaxed max-w-sm">
-            Agen wisata pilihan di Yogyakarta yang berfokus pada kenyamanan dan
-            pengalaman wisata yang autentik.
-          </p>
-        </div>
-        <div>
-          <h4 class="font-bold mb-6 text-white uppercase tracking-wider">
-            Navigasi
-          </h4>
-          <ul class="space-y-3 opacity-70">
-            <li>
-              <a href="#services" class="hover:text-[#A44A3F]">Layanan Kami</a>
-            </li>
-            <li>
-              <a href="#packages" class="hover:text-[#A44A3F]">Paket Wisata</a>
-            </li>
-            <li>
-              <a href="#destinations" class="hover:text-[#A44A3F]">Destinasi</a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-bold mb-6 text-white uppercase tracking-wider">
-            Kontak
-          </h4>
-          <p class="opacity-70 mb-2">WhatsApp: +62 812 3456 7890</p>
-          <p class="opacity-70">Email: halo@jogjatrip.id</p>
-        </div>
-      </div>
-      <div
-        class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/10 text-center text-[10px] opacity-40"
-      >
-        &copy; 2024 JogjaTrip. Didesain dengan hati untuk Yogyakarta Istimewa.
-      </div>
-    </footer>
+    <!-- Footer and Navbar are rendered by shared.js -->
 
-    <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/6281234567890" target="_blank" class="floating-wa">
-      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-        <path
-          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
-        />
-      </svg>
-      <span>Hubungi Kami</span>
-    </a>
+    <script src="data.js"></script>
+    <script src="shared.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Render Services
+        const sContainer = document.getElementById("services-container");
+        services.slice(0, 3).forEach((s, i) => {
+          sContainer.innerHTML += `
+            <div class="card p-8 text-center" data-aos="fade-up" data-aos-delay="${i * 100}">
+              <div class="w-14 h-14 bg-[#A44A3F]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-7 h-7 text-[#A44A3F]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${s.icon}"></path></svg>
+              </div>
+              <h3 class="text-lg font-bold mb-3 text-gray-800">${s.title}</h3>
+              <p class="text-xs text-gray-500 leading-relaxed">${s.desc}</p>
+            </div>`;
+        });
 
-    <!-- AOS JS Library -->
+        // Render Packages (Preview 3)
+        const pContainer = document.getElementById("packages-container");
+        tourPackages.slice(0, 3).forEach((p, i) => {
+          pContainer.innerHTML += renderPackageCard(p, i);
+        });
+
+        // Render Armada (Preview 3)
+        const aContainer = document.getElementById("armada-container");
+        carFleets.slice(0, 3).forEach((c, i) => {
+          aContainer.innerHTML += renderCarCard(c, i);
+        });
+
+        // Render Gallery (Preview 6, 16:9 ratio via renderGalleryItem)
+        const gContainer = document.getElementById("gallery-container");
+        galleryImages.slice(0, 6).forEach((img, i) => {
+          gContainer.innerHTML += renderGalleryItem(img, i);
+        });
+      });
+    </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script src="index.js"></script>
   </body>
 </html>

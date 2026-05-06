@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery Momen - JogjaTrip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    
+    <header class="package-detail-header text-center">
+      <div class="max-w-4xl mx-auto px-6" data-aos="fade-up">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6">Galeri Perjalanan</h1>
+        <p class="text-white/70 text-lg">Melihat kembali senyum dan kebahagiaan para pelancong yang telah menjelajahi Jogja bersama kami.</p>
+      </div>
+    </header>
+
+    <section class="py-24 max-w-7xl mx-auto px-6">
+      <div id="full-gallery" class="gallery-grid"></div>
+    </section>
+
+    <script src="data.js"></script>
+    <script src="shared.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById("full-gallery");
+        // Replicating images for a fuller gallery effect
+        [...galleryImages, ...galleryImages].forEach((img, i) => {
+          container.innerHTML += renderGalleryItem(img, i);
+        });
+      });
+    </script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  </body>
+</html>
