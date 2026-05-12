@@ -17,21 +17,30 @@ function renderNavbar() {
           <a href="https://wa.me/${contactInfo.phone}" target="_blank" class="hidden sm:block bg-[#A44A3F] text-white px-6 py-2 rounded-full hover:bg-[#8e3d34] transition-colors text-sm font-semibold">
             Pesan Via WA
           </a>
-          <button id="menu-btn" class="md:hidden text-[#2D3142] focus:outline-none">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          <button id="menu-btn" class="md:hidden text-[#2D3142] focus:outline-none p-2">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
           </button>
         </div>
       </div>
 
-      <!-- Mobile Menu Overlay -->
-      <div id="mobile-menu" class="fixed inset-0 w-full h-screen bg-white z-[9997] flex flex-col items-center pt-32 px-8 transition-transform duration-500 ease-in-out translate-x-full md:hidden">
-        <div class="flex flex-col items-center w-full space-y-6">
-          <a href="index.html" class="mobile-link text-2xl font-bold text-[#2D3142]">Home</a>
-          <a href="paket.html" class="mobile-link text-2xl font-bold text-[#2D3142]">Paket Wisata</a>
-          <a href="armada.html" class="mobile-link text-2xl font-bold text-[#2D3142]">Armada</a>
-          <a href="gallery.html" class="mobile-link text-2xl font-bold text-[#2D3142]">Gallery</a>
-          <a href="tentang-kami.html" class="mobile-link text-2xl font-bold text-[#2D3142]">Tentang Kami</a>
-          <a href="https://wa.me/${contactInfo.phone}" target="_blank" class="mt-10 w-full bg-[#A44A3F] text-white py-5 rounded-full text-center text-xl font-bold shadow-2xl">Hubungi Kami</a>
+      <!-- Mobile Menu Backdrop -->
+      <div id="menu-backdrop"></div>
+
+      <!-- Mobile Menu Drawer -->
+      <div id="mobile-menu">
+        <div class="mobile-nav-header">
+          <a href="index.html" class="text-xl font-bold text-[#A44A3F]">Jogja<span class="text-[#2D3142]">Trip</span></a>
+          <button class="close-menu-btn" id="close-menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+        <div class="flex flex-col space-y-2">
+          <a href="index.html" class="mobile-link">Home</a>
+          <a href="paket.html" class="mobile-link">Paket Wisata</a>
+          <a href="armada.html" class="mobile-link">Armada</a>
+          <a href="gallery.html" class="mobile-link">Gallery</a>
+          <a href="tentang-kami.html" class="mobile-link">Tentang Kami</a>
+          <a href="https://wa.me/${contactInfo.phone}" target="_blank" class="mt-8 bg-[#A44A3F] text-white py-4 rounded-xl text-center font-bold shadow-lg">Pesan Sekarang</a>
         </div>
       </div>
     </nav>
@@ -82,31 +91,45 @@ function renderFooter() {
 // Menu Logic
 function toggleMobileMenu() {
   const menu = document.getElementById("mobile-menu");
-  const icon = document.getElementById("menu-icon");
-  menu.classList.toggle("translate-x-full");
-  menu.classList.toggle("translate-x-0");
+  const backdrop = document.getElementById("menu-backdrop");
+  
+  if (!menu || !backdrop) return;
 
-  const isOpen = menu.classList.contains("translate-x-0");
+  const isOpen = menu.classList.contains("open");
+  
   if (isOpen) {
-    icon.setAttribute("d", "M6 18L18 6M6 6l12 12");
-    document.body.style.overflow = "hidden";
-  } else {
-    icon.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
+    menu.classList.remove("open");
+    backdrop.classList.remove("open");
     document.body.style.overflow = "auto";
+  } else {
+    menu.classList.add("open");
+    backdrop.classList.add("open");
+    document.body.style.overflow = "hidden";
   }
 }
 
 // Global Initialization
-document.addEventListener('DOMContentLoaded', () => {
-  renderNavbar();
-  renderFooter();
+renderNavbar();
+renderFooter();
 
+document.addEventListener('DOMContentLoaded', () => {
   const menuBtn = document.getElementById("menu-btn");
+  const closeBtn = document.getElementById("close-menu");
+  const backdrop = document.getElementById("menu-backdrop");
+
   if (menuBtn) menuBtn.addEventListener("click", toggleMobileMenu);
+  if (closeBtn) closeBtn.addEventListener("click", toggleMobileMenu);
+  if (backdrop) backdrop.addEventListener("click", toggleMobileMenu);
 
   const mobileLinks = document.querySelectorAll(".mobile-link");
   mobileLinks.forEach(link => {
-    link.addEventListener("click", toggleMobileMenu);
+    link.addEventListener("click", () => {
+      // Small delay to allow the click to register before closing if needed, 
+      // but usually immediate is fine.
+      if (document.getElementById("mobile-menu").classList.contains("open")) {
+        toggleMobileMenu();
+      }
+    });
   });
 
   // AOS Init
